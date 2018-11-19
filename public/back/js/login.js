@@ -9,7 +9,16 @@
 //使用表单校验插件
 $("#formId").bootstrapValidator({
 
-    //3. 指定校验字段
+
+    // 指定校验时的图标显示，默认是bootstrap风格
+    feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+    },
+
+
+    // 指定校验字段
     fields: {
         // 配置用户名
         username: {
@@ -68,12 +77,15 @@ $("#formId").on('success.form.bv', function (e) {
         success: function (info) {
             if (info.success) {
                 location.href = "./index.html";
+
             }
             if (info.error === 1000) {
-                alert(info.message);
+                // alert(info.message);
+                message(info.message);
             }
             if (info.error === 1001) {
-                alert(info.message);
+                // alert(info.message);
+                message(info.message);
             }
         },
         error: function () {
@@ -90,4 +102,22 @@ $("#formId").on('success.form.bv', function (e) {
 
 $("[type = reset]").click(function () {
     $("#formId").data('bootstrapValidator').resetForm();
+
 })
+
+// 封装弹窗动画
+function message(text) {
+    $(".message-text").text(text)
+    $(".message").animate({
+        top: "60px",
+        opacity: 1
+    }, 600, function () {
+        setTimeout(function () {
+            $(".message").css({
+                top: "-80px",
+                opacity: 0,
+                transition: "all 2s"
+            });
+        }, 800);
+    })
+}
