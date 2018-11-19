@@ -113,11 +113,10 @@ function message(text) {
         opacity: 1
     }, 600, function () {
         setTimeout(function () {
-            $(".message").css({
+            $(".message").animate({
                 top: "-80px",
-                opacity: 0,
-                transition: "all 2s"
-            });
-        }, 800);
+                opacity: 0
+            }, 600)
+        }, 1200);
     })
 }
