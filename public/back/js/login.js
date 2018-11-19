@@ -111,12 +111,12 @@ function message(text) {
     $(".message").animate({
         top: "60px",
         opacity: 1
-    }, 600, function () {
+    }, 700, function () {
         setTimeout(function () {
             $(".message").animate({
                 top: "-80px",
                 opacity: 0
-            }, 600)
+            }, 500);
         }, 1200);
     })
 }
