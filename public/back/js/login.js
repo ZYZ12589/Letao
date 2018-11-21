@@ -109,21 +109,5 @@ $("#formId").on('success.form.bv', function (e) {
 
 $("[type = reset]").click(function () {
     $("#formId").data('bootstrapValidator').resetForm();
-
 })
 
-// 封装弹窗动画
-function message(text) {
-    $(".message-text").text(text)
-    $(".message").animate({
-        top: "60px",
-        opacity: 1
-    }, 700, function () {
-        setTimeout(function () {
-            $(".message").animate({
-                top: "-80px",
-                opacity: 0
-            }, 500);
-        }, 1200);
-    })
-}
