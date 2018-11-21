@@ -176,3 +176,10 @@ ul {
     color: #a94442;
     text-align: center;
 }
+
+/* 用户页面 */
+
+.table.table-bordered.table-hover td {
+    text-align: center;
+    vertical-align: middle;
+}
