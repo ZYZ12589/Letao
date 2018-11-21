@@ -32,6 +32,9 @@ $("#formId").bootstrapValidator({
                     min: 2,
                     max: 6,
                     message: '用户名长度必须在2-6位之间'
+                },
+                callback: {
+                    message: '用户名不存在'
                 }
             }
         },
@@ -47,6 +50,9 @@ $("#formId").bootstrapValidator({
                     min: 6,
                     max: 12,
                     message: '密码的长度必须在6-12位之间'
+                },
+                callback: {
+                    message: '密码错误'
                 }
             }
         }
@@ -77,15 +83,16 @@ $("#formId").on('success.form.bv', function (e) {
         success: function (info) {
             if (info.success) {
                 location.href = "./index.html";
-
             }
             if (info.error === 1000) {
                 // alert(info.message);
                 message(info.message);
+                $('#formId').data('bootstrapValidator').updateStatus('username', 'INVALID', 'callback');
             }
             if (info.error === 1001) {
                 // alert(info.message);
                 message(info.message);
+                $('#formId').data('bootstrapValidator').updateStatus('password', 'INVALID', 'callback');
             }
         },
         error: function () {
