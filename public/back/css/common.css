@@ -193,3 +193,11 @@ ul {
     text-align: center;
     vertical-align: middle;
 }
+
+/* 分页按钮 */
+
+.pagination>li>a,
+.pagination>li>span {
+    user-select: none;
+    cursor: pointer;
+}
