@@ -11,6 +11,10 @@ ul {
     margin: 0;
 }
 
+.mt_20 {
+    margin-top: 20px;
+}
+
 /* 登录页面 */
 
 .body_bg {
@@ -184,7 +188,6 @@ ul {
 
 .modal-body {
     color: #a94442;
-    text-align: center;
 }
 
 /* 用户页面 */
@@ -201,3 +204,5 @@ ul {
     user-select: none;
     cursor: pointer;
 }
+
+/* 点击 */
