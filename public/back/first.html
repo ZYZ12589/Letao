@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>一级分类</title>
+    <title>用户管理</title>
     <link rel="icon" href="./favicon.ico">
     <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.css" />
     <link rel="stylesheet" href="./lib/bootstrap-validator/css/bootstrapValidator.css">
@@ -57,9 +57,10 @@
                 <li class="active">一级分类</li>
             </ol>
 
-            <!-- 主体内容 -->
-            <button class="btn btn-default addSort">添加分类</button>
+            <!-- 添加分类按钮 -->
+            <button class="btn btn-default addClassify">添加分类</button>
 
+            <!-- 一级分类列表 -->
             <table class="table table-bordered table-hover mt_20">
                 <thead>
                     <tr>
@@ -68,17 +69,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- 来个坑 -->
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
                 </tbody>
             </table>
 
             <!-- 分页容器 -->
             <div class="text-right">
-                <ul class="paginator"></ul>
+                <ul id="pagenator"></ul>
             </div>
+
         </div>
 
-        <!-- 模态框 -->
+        <!-- 登出模态框 -->
         <div class="modal fade" id="myModal" tabindex="-1">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
@@ -98,8 +103,8 @@
             </div>
         </div>
 
-        <!-- 添加分类模态框 -->
-        <div class="modal fade" id="sortModal" tabindex="-1">
+        <!-- 一级分类模态框 -->
+        <div class="modal fade" id="firstModal" tabindex="-1">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <form id="form">
@@ -108,19 +113,18 @@
                             <h4 class="modal-title">添加分类</h4>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group text-left">
-                                <input type="text" class="form-control" name="categoryName" placeholder="请输入一级分类">
+                            <div class="form-group">
+                                <input type="text" name="categoryName" class="form-control" placeholder="请输入一级分类">
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                            <button type="submit" class="btn btn-primary">确定</button>
+                            <button type="submit" class="btn btn-primary ">添加</button>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
         <!-- 错误弹窗 -->
         <div class="message col-xs-12 col-sm-6 col-lg-3">
@@ -131,25 +135,23 @@
             </div>
         </div>
 
-
-        <!-- 一级分类模板 -->
+        <!-- 一级菜单模板 -->
         <script type="text/html" id="first_tmp">
-            {{ each rows v i }}
+            {{ each rows v i}}
             <tr>
                 <td>{{ i+1 + (page - 1) * size }}</td>
-                <td>{{ v.categoryName }}</td>
+                <td>{{ v.categoryName}}</td>
             </tr>
-            {{ /each }}
+            {{ /each}}
         </script>
-
 
 
         <script src="./lib/jquery/jquery.min.js"></script>
         <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
-        <script src="./lib/artTemplate/template-web.js"></script>
-        <script src="./lib/bootstrap-paginator/bootstrap-paginator.min.js"></script>
-        <script src="./lib/bootstrap-validator/js/bootstrapValidator.min.js"></script>
         <script src="./lib/nprogress/nprogress.js"></script>
+        <script src="./lib/bootstrap-paginator/bootstrap-paginator.min.js"></script>
+        <script src="./lib/artTemplate/template-web.js"></script>
+        <script src="./lib/bootstrap-validator/js/bootstrapValidator.min.js"></script>
         <script src="./js/common.js"></script>
         <script src="./js/isLogin.js"></script>
         <script src="./js/first.js"></script>
