@@ -93,15 +93,18 @@ ul {
     color: #fff;
 }
 
-.lt_aside .aside_nav {
-    padding-left: 45px;
-}
-
 .lt_aside .aside_nav a {
     display: block;
     height: 40px;
     line-height: 40px;
+    padding-left: 45px;
     color: #fff;
+    border-left: 3px solid transparent;
+}
+
+.lt_aside .aside_nav a.current {
+    background-color: #1d1f21;
+    border-left: 3px solid #3c8dbc;
 }
 
 .lt_aside .aside_nav a i {
@@ -109,8 +112,15 @@ ul {
 }
 
 .lt_aside .aside_nav .child {
-    padding-left: 22px;
     display: none;
+}
+
+.lt_aside .aside_nav .child.current {
+    display: block;
+}
+
+.lt_aside .aside_nav .child a {
+    padding-left: 67px;
 }
 
 .lt_main {
