@@ -152,6 +152,13 @@ $(function () {
                     currentPage = 1;
                     // 重新渲染
                     render();
+
+                    // 重置表单状态和内容
+                    $("#form").data("bootstrapValidator").resetForm(true);
+                    // 重置下拉菜单按钮内容
+                    $("#dropdown_btn").text("请选择一级分类");
+                    // 重置图片显示区域
+                    $(".pic_img").attr("src", './images/none.png');
                 }
             }
         })
