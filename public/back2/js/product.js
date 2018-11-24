@@ -2,7 +2,7 @@
  * Created by 54721 on 2018/11/24.
  */
 
-$(function() {
+$(function () {
 
   var picArr = []; // 专门用于存储需要上传的图片
 
@@ -21,17 +21,17 @@ $(function() {
         pageSize: pageSize
       },
       dataType: "json",
-      success: function( info ) {
-        console.log( info );
+      success: function (info) {
+        console.log(info);
         var htmlStr = template("productTpl", info);
-        $('tbody').html( htmlStr );
+        $('tbody').html(htmlStr);
 
         // 分页初始化
         $('#paginator').bootstrapPaginator({
           bootstrapMajorVersion: 3,
           currentPage: info.page,
-          totalPages: Math.ceil( info.total / info.size ),
-          onPageClicked: function( a, b, c, page ) {
+          totalPages: Math.ceil(info.total / info.size),
+          onPageClicked: function (a, b, c, page) {
             // 更新当前页
             currentPage = page;
             render();
@@ -44,7 +44,7 @@ $(function() {
 
 
   // 2. 点击添加商品按钮, 显示添加模态框
-  $('#addBtn').click(function() {
+  $('#addBtn').click(function () {
     $('#addModal').modal("show");
 
     // 发送 ajax, 请求所有的二级分类数据, 进行渲染
@@ -56,24 +56,24 @@ $(function() {
         pageSize: 100
       },
       dataType: "json",
-      success: function( info ) {
-        console.log( info );
-        var htmlStr = template( "dropdownTpl", info );
-        $('.dropdown-menu').html( htmlStr );
+      success: function (info) {
+        console.log(info);
+        var htmlStr = template("dropdownTpl", info);
+        $('.dropdown-menu').html(htmlStr);
       }
     })
   });
 
 
   // 3. 给下拉框的 a 添加点击事件 (通过事件委托)
-  $('.dropdown-menu').on("click", "a", function() {
+  $('.dropdown-menu').on("click", "a", function () {
     // 获取文本, 设置给按钮
     var txt = $(this).text();
-    $('#dropdownText').text( txt );
+    $('#dropdownText').text(txt);
 
     // 获取id, 设置给隐藏域
     var id = $(this).data("id");
-    $('[name="brandId"]').val( id );
+    $('[name="brandId"]').val(id);
 
     // 将隐藏域的校验状态改成VALID
     $('#form').data("bootstrapValidator").updateStatus("brandId", "VALID");
@@ -85,16 +85,19 @@ $(function() {
   $('#fileupload').fileupload({
     dataType: "json", // 返回的数据类型
     // 文件上传的回调函数
-    done: function( e, data ) {
-      // console.log( data.result ); // 后台返回的数据
+    done: function (e, data) {
+      console.log(data.result); // 后台返回的数据
 
       var picObj = data.result; // 图片信息(图片名称/图片地址)
       // 往数组的最前面追加
-      picArr.unshift( picObj );
+      picArr.unshift(picObj);
+      console.log(picArr);
+
 
       // 获取图片地址, 将图片添加到结构最前面
       var picUrl = picObj.picAddr;
-      $('#imgBox').prepend('<img src="'+ picUrl +'" style="width: 100px;">');
+
+      $('#imgBox').prepend('<img src="' + picUrl + '" style="width: 100px;">');
 
       // push 往数组最后面追加
       // pop  删除最后一项
@@ -102,7 +105,7 @@ $(function() {
       // unshift 往数组最前面添加
 
       // 如果长度 > 3 说明超出长度范围, 需要将最后的图片移除
-      if ( picArr.length > 3 ) {
+      if (picArr.length > 3) {
         // 删除数组的最后一项
         picArr.pop();
         // 删除最后一张图片
@@ -114,7 +117,7 @@ $(function() {
       console.log(picArr);
 
 
-      if ( picArr.length === 3 ) {
+      if (picArr.length === 3) {
         // 说明当前图片已经上传满 3 张, 需要将 picStatus 校验状态改成 VALID
         $('#form').data("bootstrapValidator").updateStatus("picStatus", "VALID");
       }
@@ -213,7 +216,7 @@ $(function() {
 
 
   // 6. 注册表单校验成功事件, 阻止默认的提交, 通过 ajax提交
-  $('#form').on("success.form.bv", function( e ) {
+  $('#form').on("success.form.bv", function (e) {
     e.preventDefault();
 
     var paramsStr = $('#form').serialize(); // 所有表单内容数据
@@ -229,9 +232,9 @@ $(function() {
       url: "/product/addProduct",
       data: paramsStr,
       dataType: "json",
-      success: function( info ) {
-        console.log( info );
-        if ( info.success ) {
+      success: function (info) {
+        console.log(info);
+        if (info.success) {
           // 添加成功
           // 关闭模态框
           $('#addModal').modal("hide");
