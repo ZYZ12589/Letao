@@ -1,13 +1,14 @@
 $(function () {
     // 1-发送 ajax 请求，获取数据，渲染页面
-    // 定义当前页和每页调条数
+    // 声明当前页和每页数量
     var currentPage = 1;
     var pageSize = 3;
 
     // 声明数组，保存图片信息
     var picArr = [];
 
-    // 打开页面，执行 ajax 请求
+
+    // 加载页面，执行 ajax 请求
     render();
 
     // 封装 ajax 请求
@@ -21,14 +22,15 @@ $(function () {
             },
             dataType: 'json',
             success: function (info) {
-                // console.log(info);
-                // 使用模板引擎，渲染页面
+                console.log(info);
+
+                // 通过模板引擎，渲染数据
                 $("tbody").html(template("prd_tmp", info));
 
                 // 添加分页标签
-                $("#pageiator").bootstrapPaginator({
-                    bootstrapMajorVersion: 3,   // 声明版本号
-                    currentPage: info.page,
+                $("#paginator").bootstrapPaginator({
+                    bootstrapMajorVersion: 3,  // 指定版本号
+                    currentPage: info.page,  // 当前页
                     totalPages: Math.ceil(info.total / info.size),
                     onPageClicked: function (a, b, c, page) {
                         // 更新当前页
@@ -41,93 +43,90 @@ $(function () {
         })
     }
 
-    // 2-点击添加商品按钮，显示模态框，获取二级菜单数据，渲染下拉框
+    // 2-点击添加商品按钮，显示模态框
     $(".add_btn").click(function () {
+        // 显示模态框
         $("#add_modal").modal("show");
 
-        // 发送 ajax 请求，获取二级菜单数据，渲染下拉框
+        // 发送 ajax 请求，获取二级菜单数据，渲染下拉菜单
         $.ajax({
             type: 'get',
             url: '/category/querySecondCategoryPaging',
             data: {
                 page: 1,
-                pageSize: 50
+                pageSize: 100
             },
             dataType: 'json',
             success: function (info) {
                 // console.log(info);
-                $(".dropdown-menu").html(template("dropdownTmp", info));
+                $(".dropdown-menu").html(template("dropdown_tmp", info));
             }
         })
+
     })
 
     // 3-点击下拉菜单，改变按钮文本，将数据 id 赋值给隐藏域
     $(".dropdown-menu").on("click", "a", function () {
-        // 修改按钮文本
+        // 改变按钮文本
         $(".dropdown_btn").text($(this).text());
-
-        // 获取数据 id，赋值给隐藏域
-        var id = $(this).data("id");
-        $("[name='brandId']").val(id);
-
-        // 修改模态框状态
-        $("form").data("bootstrapValidator").updateStatus("brandId", "VALID");
+        // 将数据 id 赋值给隐藏域
+        $("[name=brandId]").val($(this).data("id"));
+        // 修改隐藏域状态
+        $("#form").data("bootstrapValidator").updateStatus("brandId", "VALID");
     })
 
-    // 4-配置 fileupload ，实现文件上传
+    // 4- 通过 fileupload，实现文件上传
     $("#fileupload").fileupload({
         dataType: "json",
         //e：事件对象
         //data：图片上传后的对象，通过data.result.picAddr可以获取上传后的图片地址
         done: function (e, data) {
-            // console.log(data);
-            // 获取图片信息
+            console.log(data);
+            // 获取图片信息()
             var picObj = data.result;
 
-            // 保存到数组
+            // 将数据保存到数组
             picArr.unshift(picObj);
-            console.log(picArr);
+            // console.log(picArr);
 
+
+            // 获取图片 url
             picUrl = picObj.picAddr;
-            $(".img_box").prepend('<img class="pic_img" src="' + picUrl + '" style="width: 100px; height: 100px;">')
+            $(".img_box").prepend('<img class="pic_img" src="' + picUrl + '" style="width: 100px; height: 100px;">');
 
-
+            // 根据数组长度，判断图片是否删除
             if (picArr.length > 3) {
-                // 删除数组最后一个
+                // 删除数组最后一项
                 picArr.pop();
 
                 // 删除最后一个 img 标签
                 $(".img_box img:last-of-type").remove();
-
             }
 
-            // 修改表单状态
-            if (picArr.length == 3) {
-                $("#form").data("bootstrapValidator").updateStatus("picStatus", "VALID")
+            if (picArr.length === 3) {
+                $("#form").data("bootstrapValidator").updateStatus("picStatus", "VALID");
             }
         }
     });
 
-
-    // 5-配置表单校验
+    // 5-表单校验
     $("#form").bootstrapValidator({
-
-        // 1. 指定不校验的类型
+        // 1、指定不校验的类型
         excluded: [],
 
-        //2. 指定校验时的图标显示，默认是bootstrap风格
+        // 2、指定校验时的显示图标
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'
         },
 
-        // 指定校验字段
+        // 3、校验字段
         fields: {
             brandId: {
                 validators: {
                     notEmpty: {
-                        message: "请选择二级菜单"
+                        message: "请选择二级分类"
                     }
                 }
             },
@@ -150,10 +149,9 @@ $(function () {
                     notEmpty: {
                         message: "请输入商品库存"
                     },
-                    //正则校验
                     regexp: {
                         regexp: /^[1-9]\d*$/,
-                        message: '商品库存必须是非零的数字开头'
+                        message: '必须是非零开头的数字'
                     }
                 }
             },
@@ -162,10 +160,9 @@ $(function () {
                     notEmpty: {
                         message: "请输入商品尺码"
                     },
-                    //正则校验
                     regexp: {
                         regexp: /^\d{2}-\d{2}$/,
-                        message: '必须是xx-xx的格式，例如：32-45'
+                        message: '必须是XX-XX的格式，例如32-46'
                     }
                 }
             },
@@ -186,56 +183,55 @@ $(function () {
             picStatus: {
                 validators: {
                     notEmpty: {
-                        message: "请上传3张图片"
+                        message: "选择3张图片"
                     }
                 }
-            }
+            },
+
         }
     })
 
-    // 注册表单验证成功事件，阻止默认提交，通过 ajax 提交数据
-    $("#form").on("success.form.bv", function (e) {
+
+
+    // 6-注册表单校验成功事件，阻止默认提交，通过 ajax 提交数据
+    $('#form').on("success.form.bv", function (e) {
         // 阻止默认提交
         e.preventDefault();
 
-        // 拼接表单信息字符串
-        var paramsStr = $("#form").serialize();
+        // 拼接字符串
+        var picStr = $("#form").serialize();
 
-        paramsStr += "picName1=" + picArr[0].picName + "&picAddr1=" + picArr[0].picAddr;
-        paramsStr += "picName1=" + picArr[1].picName + "&picAddr1=" + picArr[1].picAddr;
-        paramsStr += "picName1=" + picArr[2].picName + "&picAddr1=" + picArr[2].picAddr;
+        // picStr += "picName1=picName1&picAddr1=picAddr";
+        picStr += "picName1=" + picArr[0].picName + "&picAddr1=" + picArr[0].picAddr;
+        picStr += "picName1=" + picArr[1].picName + "&picAddr1=" + picArr[1].picAddr;
+        picStr += "picName1=" + picArr[2].picName + "&picAddr1=" + picArr[2].picAddr;
+
+        // console.log(picStr);
 
 
         // 通过 ajax 提交数据
         $.ajax({
             type: 'post',
             url: '/product/addProduct',
-            data: paramsStr,
+            data: picStr,
             dataType: 'json',
             success: function (info) {
                 // console.log(info);
-
-                // 隐藏模态框
                 $("#add_modal").modal("hide");
-
                 // 重置当前页
                 currentPage = 1;
-
-                // 重新渲染
                 render();
 
-                // 重置表单内容和状态
-                // console.log($("#form").data("bootstrapValidator"));
+                // 重置表单
                 $("#form").data("bootstrapValidator").resetForm(true);
 
-                // 重置下拉菜单按钮，和 图片展示
                 $(".dropdown_btn").text("请选择二级分类");
 
-                // 清空图片
-                $(".img_box img").remove();
-                // 清空数组
+                $(".img_box").remove();
+
                 picArr = [];
             }
         })
     })
+
 })

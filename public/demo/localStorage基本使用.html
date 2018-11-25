@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        1、localStoreage的基本使用
+            - localStorage.setItem(key, value);  // 设置
+            - localStorage.getItem(ley);         // 获取
+            - localStorage.removeItem(key);      // 移除
+            - localStorage.clear();              // 清空
+
+            localStorage 不能直接存储复杂数据类型，里面的值是以键值对的方式进行存储的
+            只能存储字符串格式的数据
+
+        2、localStorage 对于复杂数据类型的存储操作
+            - 存储
+              先将 复杂数据类型 转换成 JSON字符串 格式，才能存储
+              JSON.stringify(arr / obj);  将 复杂数据类型 转换成 JSON字符串
+              
+            - 获取
+              得到 JSON字符串，需要转换成 复杂数据类型 才能使用
+              JSON.parse( jsonStr );  将 JSON字符串 转换成 复杂数据类型（arr / obj）
+     -->
+</body>
+
+</html>

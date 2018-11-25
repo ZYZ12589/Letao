@@ -1,0 +1,45 @@
+.search_history {
+    padding: 10px;
+    font-size: 12px;
+}
+
+.search_history .history_title {
+    color: #787878;
+}
+
+.search_history .history_title span {
+    width: 70px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    display: inline-block;
+}
+
+.search_history .history_content ul {
+    border: 1px dashed red;
+}
+
+.search_history .history_content a {
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 15px;
+    border-bottom: 1px dashed red;
+}
+
+.search_history .history_content li:last-child a {
+    border-bottom: none;
+}
+
+.search_history .history_content a i {
+    width: 45px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #333;
+}
+
+.search_history .prompt {
+    margin-top: 20px;
+    text-align: center;
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        需求：有一个页面  xxx.html?key=匡威鹏&name=pp&age=18&desc=帅
+        需要解析地址栏的所有参数，并且将其提取到一个对象中
+        对象格式：{key: "匡威鹏", name: 'pp', age: 18, desc: '帅'}
+     -->
+
+    <script>
+        // 声明对象，保存数据
+        var obj = {};
+
+        //  获取地址栏参数
+        var str = location.search;                   // "?key=%E5%8C%A1%E5%A8%81%E9%B9%8F&name=pp&age=18&desc=%E5%B8%85"
+
+        str = "?key=%E5%8C%A1%E5%A8%81%E9%B9%8F&name=pp&age=18&desc=%E5%B8%85";
+
+        // 转换编码格式
+        var str = decodeURI(str);                     // "?key=匡威鹏&name=pp&age=18&desc=帅"
+
+        // 截取字符串
+        var str = str.slice(1);                       // "key=匡威鹏&name=pp&age=18&desc=帅"
+
+        // 切割字符串
+        var arr = str.split('&');                     // ["key=匡威鹏", "name=pp", "age=18", "desc=帅"]
+
+        // 遍历数组，切割字符串
+        arr.forEach(function (v, i) {
+            obj[v.split('=')[0]] = v.split('=')[1];    // {key: "匡威鹏", name: "pp", age: "18", desc: "帅"}
+        })
+
+        console.log(obj);
+
+    </script>
+</body>
+
+</html>

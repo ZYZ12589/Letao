@@ -1,0 +1,12 @@
+.lt_nav {
+    padding: 10px;
+}
+
+.lt_nav ul li {
+    float: left;
+    width: 33.33%;
+}
+
+.lt_nav ul li a {
+    display: block;
+}

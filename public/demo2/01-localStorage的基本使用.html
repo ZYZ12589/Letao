@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<body>
+
+  <!--
+  1. localStorage的基本使用:
+    (1) localStorage.setItem(key, value);   // 设置
+    (2) localStorage.getItem(key);   // 获取
+    (3) localStorage.removeItem(key);  // 移除某个单项
+    (4) localStorage.clear();   // 清空所有   (破坏性比较大, 慎用)
+
+    localStorage 不能直接存储复杂数据类型, 里面是以键值对的方式进行存储的,
+    只能存储字符串格式的数据
+
+  2. localStorage对于复杂数据类型的存储操作
+     (1) 存储
+         先将 复杂数据类型 转换成 JSON字符串格式, 才能存储
+         JSON.stringify( arr/obj );  将 复杂数据类型 =>  JSON字符串
+
+     (2) 获取
+         得到是 JSON字符串, 需要转换成复杂数据类型, 才能使用
+         JSON.parse( jsonStr );    将 jsonStr =>  复杂数据类型(obj/arr)
+
+     操作题: 存储一个对象 { name: '花花', age: '18', desc: '不错' }
+-->
+
+</body>
+
+</html>
